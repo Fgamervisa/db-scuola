@@ -53,23 +53,23 @@
 <article class="note" id="home" data-title="README">
 <h1>Database per una scuola</h1>
 <div class="tags"><span class="tag">#informatica</span><span class="tag">#database</span><span class="tag">#mysql</span></div>
-<p>Questi sono i miei appunti per l'esercitazione sul database scolastico. Li ho organizzati come un vault di Obsidian: ogni parola in viola è un collegamento a un'altra nota, così se un termine non è chiaro ci clicchi sopra e trovi la spiegazione.</p>
-<p>Ho cercato di scriverli in modo che si capiscano anche senza aver mai studiato basi di dati. Basta sapere cos'è un linguaggio di programmazione e usare un minimo il computer.</p>
+<p>Questa guida mostra passo per passo come progettare un database scolastico. È organizzata come un vault di Obsidian: ogni parola in viola è un collegamento a un'altra nota, così se un termine non è chiaro basta cliccarci sopra per trovare la spiegazione.</p>
+<p>È scritta per essere comprensibile anche da chi non ha mai studiato basi di dati. Basta sapere cos'è un linguaggio di programmazione e usare un minimo il computer.</p>
 
 <div class="callout tip"><div class="t">💡 Come muoversi</div>
-<p>Dal computer, se passi il mouse su un link vedi un'anteprima della nota. In fondo a ogni pagina c'è la lista delle note che la citano. Nella <a class="link" href="#grafo">Vista a grafo</a> vedi tutto collegato insieme.</p></div>
+<p>Dal computer, passando il mouse su un link compare un'anteprima della nota. In fondo a ogni pagina c'è la lista delle note che la citano. Nella <a class="link" href="#grafo">Vista a grafo</a> si vede tutto collegato insieme.</p></div>
 
-<h2>La consegna in breve</h2>
+<h2>Il problema in breve</h2>
 <p>Una scuola vuole tenere traccia di studenti, classi, materie e voti. Bisogna progettare il database seguendo i tre passaggi <a class="link" href="#schemi">concettuale, logico e fisico</a>, crearlo su MySQL/MariaDB e riempirlo con dati di prova.</p>
 
 <h2>Da dove partire</h2>
 <ol>
-<li><a class="link" href="#analisi">Analisi</a>: leggo il testo e capisco cosa serve</li>
-<li><a class="link" href="#er">Schema E-R</a>: lo disegno</li>
-<li><a class="link" href="#logico">Schema logico</a>: lo trasformo in tabelle</li>
-<li><a class="link" href="#fisico">Schema fisico</a>: scelgo tipi e regole</li>
-<li><a class="link" href="#create">Creazione tabelle</a> e <a class="link" href="#dati">Dati di prova</a>: lo scrivo in SQL</li>
-<li><a class="link" href="#query">Query di controllo</a>: verifico che funzioni</li>
+<li><a class="link" href="#analisi">Analisi</a>: si legge il testo e si capisce cosa serve</li>
+<li><a class="link" href="#er">Schema E-R</a>: si disegna il modello</li>
+<li><a class="link" href="#logico">Schema logico</a>: lo si trasforma in tabelle</li>
+<li><a class="link" href="#fisico">Schema fisico</a>: si scelgono tipi e regole</li>
+<li><a class="link" href="#create">Creazione tabelle</a> e <a class="link" href="#dati">Dati di prova</a>: si scrive tutto in SQL</li>
+<li><a class="link" href="#query">Query di controllo</a>: si verifica che funzioni</li>
 <li><a class="link" href="#domande">Domande finali</a></li>
 </ol>
 <footer>Fgamervisa · esercitazione di informatica · ottobre 2026</footer>
@@ -78,7 +78,7 @@
 <!-- ===================== GRAFO ===================== -->
 <article class="note" id="grafo" data-title="Vista a grafo">
 <h1>Vista a grafo</h1>
-<p>Ogni pallino è una nota, ogni linea è un collegamento. Quelli viola sono i passaggi dello svolgimento, quelli grigi i concetti. Più un pallino è grande, più note lo citano. Puoi trascinarli e cliccarci sopra per aprirli.</p>
+<p>Ogni pallino è una nota, ogni linea è un collegamento. Quelli viola sono i passaggi dello svolgimento, quelli grigi i concetti. Più un pallino è grande, più note lo citano. Si possono trascinare e, cliccandoci sopra, si apre la nota.</p>
 <canvas id="graph"></canvas>
 </article>
 
@@ -87,7 +87,7 @@
 <h1>Database</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>Un database è una raccolta di dati organizzata in modo da poterli cercare, modificare e collegare facilmente.</p>
-<p>L'esempio più vicino è il registro elettronico: dentro ci sono studenti, voti, assenze. Il database è la parte "invisibile" che conserva tutto questo con regole precise, per esempio non ti lascia mettere un voto a uno studente che non esiste.</p>
+<p>L'esempio più vicino è il registro elettronico: dentro ci sono studenti, voti, assenze. Il database è la parte "invisibile" che conserva tutto questo con regole precise, per esempio non permette di mettere un voto a uno studente che non esiste.</p>
 <p>Per usarlo serve un programma, il <a class="link" href="#dbms">DBMS</a>. I dati dentro sono divisi in <a class="link" href="#tabella">tabelle</a>.</p>
 </article>
 
@@ -95,8 +95,8 @@
 <h1>DBMS</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>DBMS = Database Management System, cioè il programma che gestisce il <a class="link" href="#database">database</a>: lo crea, ci salva i dati, risponde alle domande.</p>
-<p>Io ho usato MariaDB, che è praticamente uguale a MySQL (è nato da lì). Per comunicarci si usa il linguaggio <a class="link" href="#sql">SQL</a>.</p>
-<div class="callout note"><div class="t">📝 Nota</div><p>Se avete XAMPP installato, MariaDB c'è già dentro e si usa da phpMyAdmin.</p></div>
+<p>In questa guida si usa MariaDB, che è praticamente uguale a MySQL (è nato da lì). Per comunicarci si usa il linguaggio <a class="link" href="#sql">SQL</a>.</p>
+<div class="callout note"><div class="t">📝 Nota</div><p>Chi ha XAMPP installato ha già MariaDB, che si usa da phpMyAdmin.</p></div>
 </article>
 
 <article class="note" id="tabella" data-title="Tabella">
@@ -150,7 +150,7 @@
 <tr><td>1:N</td><td>uno con molti</td><td>un'auto ha un solo proprietario, una persona può avere più auto</td></tr>
 <tr><td>N:N</td><td>molti con molti</td><td>studenti e corsi pomeridiani</td></tr>
 </table></div>
-<div class="callout tip"><div class="t">💡 Trucco</div><p>Per capire la cardinalità mi faccio due domande, una per verso: "un X quanti Y può avere?" e "un Y quanti X può avere?".</p></div>
+<div class="callout tip"><div class="t">💡 Trucco</div><p>Per capire la cardinalità conviene farsi due domande, una per verso: "un X quanti Y può avere?" e "un Y quanti X può avere?".</p></div>
 <p>Le 1:N si risolvono con una <a class="link" href="#fk">chiave esterna</a>, le N:N con una <a class="link" href="#associativa">tabella associativa</a>.</p>
 </article>
 
@@ -158,25 +158,25 @@
 <h1>Chiave primaria (PK)</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>La chiave primaria è il campo che identifica ogni <a class="link" href="#record">record</a> senza possibilità di confusione, tipo il numero di matricola. Non si può ripetere e non può essere vuota.</p>
-<p>Non ho usato nome e cognome perché possono esserci due Luca Rossi. Ho usato invece un numero che il <a class="link" href="#dbms">DBMS</a> assegna da solo (1, 2, 3...) con <code>AUTO_INCREMENT</code>. Si chiama chiave artificiale.</p>
+<p>Nome e cognome non vanno bene, perché possono esserci due Luca Rossi. Si usa invece un numero che il <a class="link" href="#dbms">DBMS</a> assegna da solo (1, 2, 3...) con <code>AUTO_INCREMENT</code>. Si chiama chiave artificiale.</p>
 <p>Una PK può essere fatta anche da due campi insieme (chiave composta), come nella <a class="link" href="#associativa">tabella associativa</a>.</p>
-<p>Nei miei schemi le PK sono evidenziate in giallo: <span class="pk">id_studente</span></p>
+<p>Negli schemi di questa guida le PK sono evidenziate in giallo: <span class="pk">id_studente</span></p>
 </article>
 
 <article class="note" id="fk" data-title="Chiave esterna">
 <h1>Chiave esterna (FK)</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>La chiave esterna è un campo che contiene la <a class="link" href="#pk">chiave primaria</a> di un'altra tabella. È quello che collega le tabelle tra loro.</p>
-<div class="callout example"><div class="t">🔍 Esempio</div><p>In STUDENTI c'è <span class="fk">id_classe</span>. Se Luca ha <code>id_classe = 3</code> vuol dire che è nella classe numero 3, cioè la 5A. Invece di scrivere "5A" ogni volta scrivo solo il numero.</p></div>
-<p>Il DBMS controlla che quel numero esista davvero: non posso mettere uno studente nella classe 99 se non c'è. Questo controllo si chiama integrità referenziale.</p>
-<p>Regola che ho usato: nelle relazioni 1:N la FK va sempre nella tabella dal lato N. Le FK sono in rosa: <span class="fk">id_classe</span></p>
+<div class="callout example"><div class="t">🔍 Esempio</div><p>In STUDENTI c'è <span class="fk">id_classe</span>. Se Luca ha <code>id_classe = 3</code> vuol dire che è nella classe numero 3, cioè la 5A. Invece di scrivere "5A" ogni volta si scrive solo il numero.</p></div>
+<p>Il DBMS controlla che quel numero esista davvero: non si può mettere uno studente nella classe 99 se non esiste. Questo controllo si chiama integrità referenziale.</p>
+<p>La regola da ricordare: nelle relazioni 1:N la FK va sempre nella tabella dal lato N. Le FK sono in rosa: <span class="fk">id_classe</span></p>
 </article>
 
 <article class="note" id="associativa" data-title="Tabella associativa">
 <h1>Tabella associativa</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>Una tabella associativa serve quando due entità sono in relazione molti a molti (N:N, vedi <a class="link" href="#cardinalita">cardinalità</a>).</p>
-<p>Il problema: una classe ha tante materie e una materia è in tante classi. Se metto <code>id_materia</code> in CLASSI, ogni classe può avere una materia sola. Se metto <code>id_classe</code> in MATERIE, ogni materia sta in una classe sola. Nessuna delle due funziona.</p>
+<p>Il problema: una classe ha tante materie e una materia è in tante classi. Mettendo <code>id_materia</code> in CLASSI, ogni classe potrebbe avere una materia sola. Mettendo <code>id_classe</code> in MATERIE, ogni materia potrebbe stare in una classe sola. Nessuna delle due funziona.</p>
 <p>La soluzione è una tabella in mezzo, CLASSI_MATERIE, dove ogni riga dice "questa classe fa questa materia":</p>
 <div class="scroll"><table>
 <tr><th><span class="pk">id_classe</span></th><th><span class="pk">id_materia</span></th><th>significato</th></tr>
@@ -192,7 +192,7 @@
 <div class="tags"><span class="tag">#concetto</span></div>
 <p>Come in qualsiasi linguaggio, ogni <a class="link" href="#attributo">attributo</a> deve dire che tipo di valore contiene.</p>
 <div class="scroll"><table>
-<tr><th>Tipo</th><th>Cosa contiene</th><th>Dove l'ho usato</th></tr>
+<tr><th>Tipo</th><th>Cosa contiene</th><th>Dove si usa qui</th></tr>
 <tr><td><code>INT</code></td><td>numero intero</td><td>id, anno</td></tr>
 <tr><td><code>VARCHAR(n)</code></td><td>testo di massimo n caratteri</td><td>nome, cognome, email</td></tr>
 <tr><td><code>CHAR(1)</code></td><td>un solo carattere</td><td>sezione</td></tr>
@@ -220,8 +220,8 @@
 <article class="note" id="sql" data-title="SQL">
 <h1>SQL</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
-<p>SQL è il linguaggio con cui si parla al <a class="link" href="#dbms">DBMS</a>. La differenza con Python o Java è che non scrivi i passaggi per arrivare al risultato: dici cosa vuoi e il DBMS si arrangia.</p>
-<p>Non serve compilarlo, ogni comando viene eseguito appena lo mandi. I comandi che ho usato:</p>
+<p>SQL è il linguaggio con cui si parla al <a class="link" href="#dbms">DBMS</a>. La differenza con Python o Java è che non si scrivono i passaggi per arrivare al risultato: si dice cosa si vuole e il DBMS si arrangia.</p>
+<p>Non serve compilarlo, ogni comando viene eseguito appena viene inviato. I comandi usati in questa guida:</p>
 <ul>
 <li><code>CREATE</code> per creare database e tabelle</li>
 <li><code>INSERT</code> per aggiungere righe</li>
@@ -234,21 +234,21 @@
 <article class="note" id="schemi" data-title="Concettuale, logico, fisico">
 <h1>Concettuale, logico, fisico</h1>
 <div class="tags"><span class="tag">#concetto</span></div>
-<p>Progettare un database è un po' come progettare una casa: prima decidi cosa ti serve, poi disegni la pianta, poi scegli i materiali.</p>
+<p>Progettare un database è un po' come progettare una casa: prima si decide cosa serve, poi si disegna la pianta, poi si scelgono i materiali.</p>
 <div class="scroll"><table>
-<tr><th>Schema</th><th>Risponde a</th><th>Nella casa</th><th>Nel mio lavoro</th></tr>
-<tr><td>Concettuale</td><td>cosa devo rappresentare?</td><td>"mi servono 3 camere e una cucina"</td><td><a class="link" href="#er">Schema E-R</a></td></tr>
+<tr><th>Schema</th><th>Risponde a</th><th>Nella casa</th><th>In questa guida</th></tr>
+<tr><td>Concettuale</td><td>cosa bisogna rappresentare?</td><td>"mi servono 3 camere e una cucina"</td><td><a class="link" href="#er">Schema E-R</a></td></tr>
 <tr><td>Logico</td><td>come lo divido in tabelle?</td><td>la piantina</td><td><a class="link" href="#logico">Schema logico</a></td></tr>
 <tr><td>Fisico</td><td>come lo costruisco su un DBMS vero?</td><td>mattoni, misure, impianti</td><td><a class="link" href="#fisico">Schema fisico</a></td></tr>
 </table></div>
-<p>Il concettuale va bene per qualsiasi programma, il fisico invece dipende da quello che usi (qui MySQL/MariaDB).</p>
+<p>Il concettuale va bene per qualsiasi programma, il fisico invece dipende dal DBMS scelto (qui MySQL/MariaDB).</p>
 </article>
 
 <!-- ===================== SVOLGIMENTO ===================== -->
 <article class="note" id="analisi" data-title="01 Analisi" data-step="1">
 <h1>01 Analisi del testo</h1>
 <div class="tags"><span class="tag">#svolgimento</span></div>
-<p>Prima di aprire MySQL ho letto il testo un paio di volte segnandomi due cose: i nomi delle cose da salvare (che diventano <a class="link" href="#entita">entità</a>) e i verbi che le collegano (che diventano <a class="link" href="#relazione">relazioni</a>).</p>
+<p>Prima di aprire MySQL conviene leggere il testo un paio di volte, segnandosi due cose: i nomi delle cose da salvare (che diventano <a class="link" href="#entita">entità</a>) e i verbi che le collegano (che diventano <a class="link" href="#relazione">relazioni</a>).</p>
 
 <h2>Glossario</h2>
 <div class="scroll"><table>
@@ -267,7 +267,7 @@
 <tr><td>MATERIA</td><td>nome, descrizione</td><td>id_materia</td></tr>
 <tr><td>VOTO</td><td>valore, data, descrizione</td><td>id_voto</td></tr>
 </table></div>
-<p>A ogni entità ho aggiunto un id perché nessun dato "naturale" è sicuramente unico (spiegato in <a class="link" href="#pk">chiave primaria</a>).</p>
+<p>A ogni entità si aggiunge un id perché nessun dato "naturale" è sicuramente unico (spiegato in <a class="link" href="#pk">chiave primaria</a>).</p>
 
 <div class="callout question"><div class="t">❓ Perché il voto è un'entità e non un campo dello studente?</div><p>Perché un voto non è un numero e basta: ha una data, una descrizione e una materia. E uno studente ne ha tanti, non uno solo. Quindi gli serve una tabella tutta sua.</p></div>
 
@@ -285,7 +285,7 @@
 <article class="note" id="er" data-title="02 Schema E-R" data-step="1">
 <h1>02 Schema E-R</h1>
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#concettuale</span></div>
-<p>Qui disegno quello che ho trovato nell'<a class="link" href="#analisi">analisi</a>. I rettangoli sono le <a class="link" href="#entita">entità</a>, i rombi le <a class="link" href="#relazione">relazioni</a>, le coppie di numeri sulle linee sono le <a class="link" href="#cardinalita">cardinalità</a> scritte come (minimo, massimo).</p>
+<p>Qui si disegna quello che è emerso dall'<a class="link" href="#analisi">analisi</a>. I rettangoli sono le <a class="link" href="#entita">entità</a>, i rombi le <a class="link" href="#relazione">relazioni</a>, le coppie di numeri sulle linee sono le <a class="link" href="#cardinalita">cardinalità</a> scritte come (minimo, massimo).</p>
 <div class="scroll">
 <svg viewBox="0 0 760 440" width="760" role="img" aria-label="Schema E-R">
 <line class="ln" x1="160" y1="110" x2="300" y2="110"/><line class="ln" x1="380" y1="110" x2="520" y2="110"/>
@@ -337,7 +337,7 @@
 <article class="note" id="logico" data-title="03 Schema logico" data-step="1">
 <h1>03 Schema logico</h1>
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#logico</span></div>
-<p>Per passare dal disegno alle <a class="link" href="#tabella">tabelle</a> ho seguito tre regole:</p>
+<p>Per passare dal disegno alle <a class="link" href="#tabella">tabelle</a> si seguono tre regole:</p>
 <ol>
 <li>ogni <a class="link" href="#entita">entità</a> diventa una tabella, gli attributi diventano colonne e l'id diventa la <a class="link" href="#pk">chiave primaria</a></li>
 <li>nelle relazioni 1:N la chiave del lato "1" va come <a class="link" href="#fk">chiave esterna</a> nella tabella del lato "N"</li>
@@ -396,14 +396,14 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <li><b>id_studente e id_materia in VOTI</b>: un voto è di un solo studente e di una sola materia, quindi VOTI è il lato N di tutte e due le relazioni.</li>
 <li><b>CLASSI_MATERIE</b>: serve per la relazione N:N, spiegata in <a class="link" href="#associativa">tabella associativa</a>.</li>
 </ul>
-<div class="callout warning"><div class="t">⚠️ Cosa ho evitato</div><p>Non ho messo id_classe anche dentro VOTI. La classe di un voto si ricava già passando dallo studente, e scriverla due volte rischia di creare dati che non tornano.</p></div>
+<div class="callout warning"><div class="t">⚠️ Un errore da evitare</div><p>Non bisogna mettere id_classe anche dentro VOTI. La classe di un voto si ricava già passando dallo studente, e scriverla due volte rischia di creare dati che non tornano.</p></div>
 <p>Avanti: <a class="link" href="#fisico">Schema fisico</a></p>
 </article>
 
 <article class="note" id="fisico" data-title="04 Schema fisico" data-step="1">
 <h1>04 Schema fisico</h1>
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#fisico</span></div>
-<p>Adesso per ogni colonna scelgo il <a class="link" href="#tipi">tipo di dato</a> e i <a class="link" href="#vincoli">vincoli</a>.</p>
+<p>Adesso per ogni colonna si scelgono il <a class="link" href="#tipi">tipo di dato</a> e i <a class="link" href="#vincoli">vincoli</a>.</p>
 
 <h3>CLASSI</h3>
 <div class="scroll"><table>
@@ -455,7 +455,7 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <article class="note" id="create" data-title="05 Creazione tabelle" data-step="1">
 <h1>05 Creazione tabelle</h1>
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#sql</span></div>
-<p>Qui traduco lo <a class="link" href="#fisico">schema fisico</a> in <a class="link" href="#sql">SQL</a>.</p>
+<p>Qui lo <a class="link" href="#fisico">schema fisico</a> viene tradotto in <a class="link" href="#sql">SQL</a>.</p>
 <div class="callout warning"><div class="t">⚠️ L'ordine conta</div><p>Prima vanno create le tabelle che non dipendono da nessuno (CLASSI e MATERIE), poi quelle con le <a class="link" href="#fk">chiavi esterne</a>. Una FK può puntare solo a una tabella che esiste già, altrimenti MySQL dà errore.</p></div>
 <pre><code><span class="kw">CREATE DATABASE</span> scuola;
 <span class="kw">USE</span> scuola;
@@ -501,14 +501,14 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
   <span class="kw">FOREIGN KEY</span> (id_studente) <span class="kw">REFERENCES</span> studenti(id_studente),
   <span class="kw">FOREIGN KEY</span> (id_materia)  <span class="kw">REFERENCES</span> materie(id_materia)
 );</code></pre>
-<div class="callout tip"><div class="t">💡 Per provarlo</div><p>Su phpMyAdmin vai nella scheda SQL, incolla tutto e premi Esegui. Trovi anche il file <code>scuola.sql</code> già pronto nel repository.</p></div>
+<div class="callout tip"><div class="t">💡 Per provarlo</div><p>Su phpMyAdmin basta aprire la scheda SQL, incollare tutto e premere Esegui. Lo script completo, con anche i dati di prova, è già pronto nel file <a href="scuola.sql" download><code>scuola.sql</code></a>.</p></div>
 <p>Avanti: <a class="link" href="#dati">Dati di prova</a></p>
 </article>
 
 <article class="note" id="dati" data-title="06 Dati di prova" data-step="1">
 <h1>06 Dati di prova</h1>
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#sql</span></div>
-<p>Ho inserito 3 classi, 6 studenti (2 per classe), 5 materie, 13 associazioni classe-materia e 16 voti. Anche qui ho rispettato l'ordine delle <a class="link" href="#fk">chiavi esterne</a>.</p>
+<p>Si inseriscono 3 classi, 6 studenti (2 per classe), 5 materie, 13 associazioni classe-materia e 16 voti. Anche qui va rispettato l'ordine delle <a class="link" href="#fk">chiavi esterne</a>.</p>
 <pre><code><span class="kw">INSERT INTO</span> classi (anno, sezione) <span class="kw">VALUES</span>
  (3,'A'),  <span class="cm">-- id 1</span>
  (4,'A'),  <span class="cm">-- id 2</span>
@@ -551,7 +551,7 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
  (5,2, 4.5, '2026-10-07', 'verifica scritta'),
  (6,1, 8.0, '2026-09-26', 'interrogazione'),
  (6,3, 9.0, '2026-10-08', 'tema');</code></pre>
-<div class="callout note"><div class="t">📝 Coerenza dei dati</div><p>Ho controllato che ogni voto sia in una materia che la classe dello studente fa davvero. Per esempio Marco è in 4A e ha un voto in Sistemi e reti, che la 4A ha.</p></div>
+<div class="callout note"><div class="t">📝 Coerenza dei dati</div><p>Conviene controllare che ogni voto sia in una materia che la classe dello studente fa davvero. Per esempio Marco è in 4A e ha un voto in Sistemi e reti, che la 4A ha.</p></div>
 <p>Avanti: <a class="link" href="#query">Query di controllo</a></p>
 </article>
 
@@ -574,7 +574,7 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <span class="kw">JOIN</span> materie m <span class="kw">ON</span> cm.id_materia = m.id_materia
 <span class="kw">WHERE</span> c.anno = 5 <span class="kw">AND</span> c.sezione = 'A';</code></pre>
 <p>Risultato: Informatica, Matematica, Italiano, Inglese, Sistemi e reti.</p>
-<div class="callout example"><div class="t">🔍 Qui si vede la tabella associativa</div><p>Per andare da CLASSI a MATERIE devo passare per CLASSI_MATERIE, non c'è un collegamento diretto. È proprio il motivo per cui l'ho creata (<a class="link" href="#associativa">tabella associativa</a>).</p></div>
+<div class="callout example"><div class="t">🔍 Qui si vede la tabella associativa</div><p>Per andare da CLASSI a MATERIE bisogna passare per CLASSI_MATERIE, non c'è un collegamento diretto. È proprio il motivo per cui è stata creata (<a class="link" href="#associativa">tabella associativa</a>).</p></div>
 
 <h3>Che voti ha Luca, e in che materie?</h3>
 <pre><code><span class="kw">SELECT</span> m.nome <span class="kw">AS</span> materia, v.valore, v.data, v.descrizione
@@ -608,7 +608,7 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <pre><code><span class="kw">SELECT DISTINCT</span> s.nome, s.cognome
 <span class="kw">FROM</span> voti v
 <span class="kw">JOIN</span> studenti s <span class="kw">ON</span> v.id_studente = s.id_studente
-<span class="kw">WHERE</span> v.valore = 8;</code></pre>
+<span class="kw">WHERE</span> v.valore &gt;= 8;</code></pre>
 <p>Risultato: Luca Rossi, Giulia Bianchi, Sara Neri, Elena Gallo. <code>DISTINCT</code> serve a non far comparire due volte lo stesso nome.</p>
 
 <h3>Che materie fa la 4A?</h3>
@@ -626,16 +626,16 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <div class="tags"><span class="tag">#svolgimento</span><span class="tag">#teoria</span></div>
 
 <details class="callout question" open><summary>1. Perché non mettere in STUDENTI un campo "materie" con "Informatica, Matematica, Italiano"?</summary>
-<p>Perché in un campo ci va un valore solo. Se ci metto una lista non posso cercare facilmente chi fa Informatica, non posso collegarla alla tabella MATERIE con una <a class="link" href="#fk">chiave esterna</a>, e basta scrivere "Informatca" per avere un dato sbagliato. In più le materie dipendono dalla classe, non dallo studente: la stessa lista andrebbe ripetuta per ogni compagno.</p></details>
+<p>Perché in un campo ci va un valore solo. Con una lista non si può cercare facilmente chi fa Informatica, non la si può collegare alla tabella MATERIE con una <a class="link" href="#fk">chiave esterna</a>, e basta scrivere "Informatca" per avere un dato sbagliato. In più le materie dipendono dalla classe, non dallo studente: la stessa lista andrebbe ripetuta per ogni compagno.</p></details>
 
 <details class="callout question" open><summary>2. Perché non fare campi "voto1", "voto2", "voto3" in STUDENTI?</summary>
 <p>Perché non si sa quanti voti prenderà uno studente: se arriva a 20 servono 20 colonne, e chi ne ha 3 lascia le altre vuote. Poi ogni voto ha anche data, descrizione e materia, quindi servirebbero anche "data1", "materia1" e così via. Fare una media diventerebbe un incubo. La soluzione giusta è una tabella VOTI con una riga per voto (relazione 1:N, vedi <a class="link" href="#cardinalita">cardinalità</a>).</p></details>
 
 <details class="callout question" open><summary>3. Perché c'è la tabella CLASSI_MATERIE?</summary>
-<p>Perché classe e materia sono in relazione molti a molti, che non si riesce a rappresentare mettendo una sola FK in una delle due tabelle. L'ho spiegato in <a class="link" href="#associativa">tabella associativa</a>.</p></details>
+<p>Perché classe e materia sono in relazione molti a molti, che non si riesce a rappresentare mettendo una sola FK in una delle due tabelle. È spiegato in <a class="link" href="#associativa">tabella associativa</a>.</p></details>
 
 <details class="callout question" open><summary>4. Perché id_studente è la chiave primaria?</summary>
-<p>Perché mi serve qualcosa che identifichi ogni studente senza dubbi, che non cambi mai e che non sia mai vuoto. Nome e cognome si possono ripetere, l'email può mancare o cambiare. Un numero automatico invece va bene in tutti i casi. Vedi <a class="link" href="#pk">chiave primaria</a>.</p></details>
+<p>Perché serve qualcosa che identifichi ogni studente senza dubbi, che non cambi mai e che non sia mai vuoto. Nome e cognome si possono ripetere, l'email può mancare o cambiare. Un numero automatico invece va bene in tutti i casi. Vedi <a class="link" href="#pk">chiave primaria</a>.</p></details>
 
 <details class="callout question" open><summary>5. Differenza tra PK e FK?</summary>
 <p>La <a class="link" href="#pk">PK</a> identifica una riga della sua tabella ed è unica. La <a class="link" href="#fk">FK</a> contiene la PK di un'altra tabella per collegarsi a lei, e si può ripetere (tanti studenti hanno lo stesso id_classe).</p></details>
@@ -643,7 +643,7 @@ VOTI(<span class="pk">id_voto</span>, <span class="fk">id_studente</span>, <span
 <details class="callout question" open><summary>6. Differenza tra schema concettuale, logico e fisico?</summary>
 <p>Il concettuale dice cosa rappresentare (entità e relazioni, cioè il diagramma E-R). Il logico lo organizza in tabelle con PK e FK. Il fisico aggiunge tipi e vincoli per un DBMS preciso ed è quello che poi si scrive in SQL. Più dettagli in <a class="link" href="#schemi">concettuale, logico, fisico</a>.</p></details>
 
-<footer>Fine. Se trovate errori ditemelo 🙂</footer>
+<footer>Fine della guida. Per ripassare, la <a class="link" href="#grafo">Vista a grafo</a> mostra tutti i concetti collegati.</footer>
 </article>
 
 </main>

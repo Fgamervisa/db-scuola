@@ -71,8 +71,8 @@ aside a.hidden { display: none; }
 
 /* contenuto */
 main { padding: 2.2rem clamp(1rem, 5vw, 3.5rem) 4rem; max-width: 860px; }
-.note { display: none; }
-.note.open { display: block; }
+article.note { display: none; }
+article.note.open { display: block; }
 .tags { margin: -.4rem 0 1.2rem; }
 .tag {
   display: inline-block; font-size: 13px; color: var(--accent); background: var(--accent-soft);

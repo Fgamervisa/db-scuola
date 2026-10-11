@@ -1,5 +1,5 @@
 // navigazione tra le note tipo obsidian
-const notes = [...document.querySelectorAll('.note')];
+const notes = [...document.querySelectorAll('article.note')];
 const byId = Object.fromEntries(notes.map(n => [n.id, n]));
 const sideLinks = [...document.querySelectorAll('aside a')];
 const aside = document.querySelector('aside');
